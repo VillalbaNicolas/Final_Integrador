@@ -1,12 +1,47 @@
 package model;
 
-public class Opcional implements OpcionalInterface{
+public class Opcional {
+
+    private int id;
+    private int precio;
+    private String tipo;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+}
+
+
+    /*
+
+
 
 
     /*****************************************************************************************
      * Decidi hacer todos en la misma clase ya que no tenian muchos atributos por separado
      **************************************************************************************/
-
+/*
     private boolean frenos;
     private final int frPrice = 14000;
 
@@ -31,6 +66,10 @@ public class Opcional implements OpcionalInterface{
     private String Tipo= "";
     private int id;
     private int price;
+
+
+    private int priceDB;
+    private String tipoDB;
 
 
 
@@ -80,6 +119,13 @@ public class Opcional implements OpcionalInterface{
         this.id = id;
     }
 
+    public void setTipoDB(String tipo){
+        this.tipoDB = tipo;
+    }
+    public String getTipoDB(){
+        return tipoDB;
+    }
+
 
 
     public void setTipo ()
@@ -123,6 +169,15 @@ public class Opcional implements OpcionalInterface{
 
         total();
 
+    }
+
+    public void setPriceDB(int price){
+        this.priceDB = price;
+
+    }
+
+    public int getPriceDB(){
+        return priceDB;
     }
 
     public void setPrice(){
@@ -383,6 +438,7 @@ public class Opcional implements OpcionalInterface{
     }
 
  */
-}
+
+
 
 

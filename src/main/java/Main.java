@@ -1,3 +1,23 @@
+/*
+Tomando como referencia los ejercicios Integradores 2 y 3 y lo visto en clase, exponer los  siguientes recursos y operaciones con sus respectivos manejos de excepciones
+
+Automóvil:
+
+Alta
+Baja
+Modificación
+Consulta de Automóviles ( listado )
+Consulta de Precio por automóvil
+Adicionales:
+
+Alta
+Baja
+Modificación
+Consulta.
+ */
+
+
+
 import com.mysql.cj.x.protobuf.MysqlxCrud;
 import model.*;
 import daos.imp.*;
@@ -11,7 +31,7 @@ public class Main {
          * Agrega los tipos de autos a la tabla
          *
          **************************************************************************************************/
-
+/*
         //instancio cada modelo
 
         Sedan sed1 = new Sedan();
@@ -34,7 +54,7 @@ public class Main {
         FamiliarDAOimp FAM = new FamiliarDAOimp();
         //FAM.insert(fam1);
 
-
+*/
         /*************************************************************************************************
            Vamos a implementar las opciones
          *************************************************************************************************/
@@ -58,7 +78,7 @@ public class Main {
 
          ***********************************************************************************************/
 
-        OpcionalDAOimp impl = new OpcionalDAOimp();
+        //OpcionalDAOimp impl = new OpcionalDAOimp();
         //impl.insert(ruedas);
         //impl.insert(techo);
         //impl.insert(aireA);
@@ -70,7 +90,7 @@ public class Main {
          * Realizar venta
          *
          ***********************************************************************************************/
-
+/*
         Opcional opc1 = new Opcional();
         opc1.add_opcional("ruedas");
         opc1.add_opcional("techo");
@@ -99,23 +119,41 @@ public class Main {
         Venta venta3 = new Venta();
         venta3.pago_final(fam1,opc3);
 
-
+*/
         /***********************************************************************************************************
          *
          *  implementacion a Sql
          *
          **********************************************************************************************************/
-
+/*
 
         VentaDAOSImp venta_imp= new VentaDAOSImp();
         venta_imp.insert(venta1);
         venta_imp.insert(venta2);
         venta_imp.insert(venta3);
 
+*/
+        /*
+AutosDAOim autoDao = new AutosDAOim();
+Auto auto1 = new Auto();
+Opcional opcional = new Opcional();
+opcional.add_opcional("techo");
+opcional.add_opcional("airbag");
+
+OpcionalDAOimp opDAO = new OpcionalDAOimp();
+
+//autoDao.getQuery(1);
+//opDAO.getQuery(1);
+
+Venta venta1 = new Venta(auto1,opcional);
+        VentaDAOSImp ventaDAO = new VentaDAOSImp();
 
 
+        ventaDAO.update(8);
+       // System.out.println(venta1.getId());
 
 
+*/
     }
 
 }

@@ -1,75 +1,19 @@
 package model;
-import  model.*;
-
-
-import java.security.PrivateKey;
-import java.util.ArrayList;
 
 public class Venta {
 
     private int id;
-    private int idAuto;
-    private Autos autos;
     private int precioFinal;
-    private String opcionales;
-    private int cantOpcionales;
+
+    private Auto auto;
+    private int idAuto;
+    private int basicoAuto;
     private String tipoAuto;
+
     private Opcional opcional;
-    //private ArrayList IdOpcionales;
+    private int cantOpcionales;
+    private int total$Opcional;
 
-    public Venta(){
-        this.autos = autos;
-        this.opcional = opcional;
-    }
-
-    public String getTipoAuto(){
-        this.tipoAuto = autos.getTipo();
-        return this.tipoAuto;
-    }
-
-
-    public void setIdAuto(Autos autos){
-        this.idAuto = autos.getId();
-
-    }
-
-    public int getIdAuto(){
-
-        return idAuto;
-    }
-
-    public void setOpcionales(Opcional opcional){
-        if (opcional.getContadorOpcionales() > 0)
-            this.opcionales = "si";
-        else
-            this.opcionales = "no";
-    }
-
-    public String getOpcionales(){
-        return opcionales;
-    }
-
-    public void setCantOpcionales(Opcional opcional){
-        this.cantOpcionales = opcional.getContadorOpcionales();
-    }
-
-    public int getCantOpcionales(){
-
-        return cantOpcionales;
-    }
-
-    public void pago_final(Autos autos, Opcional opcional)
-    {
-        int sumatoria = 0;
-        sumatoria = autos.getBasico() + opcional.total();
-        this.precioFinal = sumatoria;
-
-    }
-
-    public int getPago()
-    {
-        return precioFinal;
-    }
 
 
     public int getId() {
@@ -78,5 +22,79 @@ public class Venta {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPrecioFinal() {
+        return precioFinal;
+    }
+
+    public void setPrecioFinal(int precioFinal) {
+        this.precioFinal = precioFinal;
+    }
+
+    /**
+     *
+     * @return
+     */
+
+    public Auto getAuto() {
+        return auto;
+    }
+
+    public void setAuto(Auto auto) {
+        this.auto = auto;
+    }
+
+    public int getIdAuto() {
+        return idAuto;
+    }
+
+    public void setIdAuto(int idAuto) {
+        this.idAuto = idAuto;
+    }
+
+    public int getBasicoAuto() {
+        return basicoAuto;
+    }
+
+    public void setBasicoAuto(Auto auto) {
+        this.basicoAuto = basicoAuto;
+    }
+
+    public String getTipoAuto() {
+        return tipoAuto;
+    }
+
+    public void setTipoAuto(String tipoAuto) {
+        this.tipoAuto = tipoAuto;
+    }
+
+    /**
+     *
+     * @return
+     */
+
+    public Opcional getOpcional() {
+        return opcional;
+    }
+
+    public void setOpcional(Opcional opcional) {
+        this.opcional = opcional;
+    }
+
+    public int getCantOpcionales() {
+        return cantOpcionales;
+    }
+
+    public void setCantOpcionales(int cantOpcionales) {
+        this.cantOpcionales = cantOpcionales;
+    }
+
+    public int getTotal$Opcional() {
+        return total$Opcional;
+    }
+
+    public void setTotal$Opcional(int total$Opcional) {
+        this.total$Opcional = total$Opcional;
     }
 }

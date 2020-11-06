@@ -1,11 +1,12 @@
 package daos;
+import exception.DAOException;
 import model.*;
 
 public interface OpcionalDAO
 {
 
-    public void insert(Opcional opcional);
-    public void update(Opcional opcional);
-    public void delete(Opcional opcional);
-    public Opcional getQuery(Opcional opcional);
+    public void insert(Opcional opcional)throws DAOException;
+    public void update(Integer id, Opcional opcional)throws DAOException;
+    public void delete(Integer id)throws DAOException;
+    public Opcional getQuery(Integer integer)throws DAOException;
 }

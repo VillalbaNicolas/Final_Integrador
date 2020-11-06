@@ -1,20 +1,25 @@
 package model;
+import exception.DAOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class  AccesoConexion  {
+public class  AccesoConexion   {
     private final static String url = "jdbc:mysql://localhost:3306/venta_autos";
     private final static String usuario = "root";
     private final static String clave ="";
 
 
-    public static Connection conexion = null;
 
 
 
-    public static Connection getConnection() {
+
+    public static Connection getConnection()  {
+
+        Connection conexion = null;
+
         try {
             if (conexion == null) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -23,8 +28,10 @@ public class  AccesoConexion  {
             }
 
         } catch (Exception e) {
-            System.out.println("Conexion fallida");
-            e.printStackTrace();
+
+            System.out.println("Error en conexion");
+
+
         }
         return conexion;
     }
@@ -34,9 +41,9 @@ public class  AccesoConexion  {
 
         try {
             conexion.close();
-        }catch (Exception ex){
-
-            ex.printStackTrace();
+        }catch (Exception e) {
+            System.out.println("Conexion fallida");
+            e.printStackTrace();
         }
     }
 }

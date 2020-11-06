@@ -1,7 +1,7 @@
 package daos.imp;
 
-import model.AccesoConexion;
-import model.Opcional;
+import exception.DAOException;
+import model.*;
 import daos.OpcionalDAO;
 
 import java.sql.Connection;
@@ -9,21 +9,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class OpcionalDAOimp implements OpcionalDAO{
+public class OpcionalDAOimp implements OpcionalDAO {
 
 
     Connection conn = AccesoConexion.getConnection();
 
     @Override
-    public void insert(Opcional opcional) {
+    public void insert(Opcional opcional)throws DAOException {
         try {
 
             // create a Statement from the connection
             Statement statement = conn.createStatement();
 
             // insert the data
-            statement.executeUpdate("INSERT INTO opcionales(basico, description) VALUES (" + opcional.getPrice() + ", '" + opcional.getTipo() + "')");
-            //System.out.println(opcional.getBasico() + opcional.getTipo());
+            statement.executeUpdate("INSERT INTO opcionales (basico, description) VALUES (" + opcional.getPrecio() + ", '" + opcional.getTipo() + "')");
+            //System.out.println(opcional.getBasico() + opcional.getTipo()());
 
 
             String query = "select * from auto";
@@ -34,9 +34,8 @@ public class OpcionalDAOimp implements OpcionalDAO{
             }
 
 
-        } catch (Exception e) {
-            System.out.println("Error: Clase AutoDaoImple, método insertar");
-            e.printStackTrace();
+        } catch (Exception ex) {
+            throw new DAOException("Error: Clase OpcionalDAOImpl" + ex.getCause());
 
         }
 
@@ -45,218 +44,69 @@ public class OpcionalDAOimp implements OpcionalDAO{
 
 
     @Override
-    public void update(Opcional opcional) {
+    public void update(Integer id, Opcional opcional)throws DAOException {
+        String consulta = "update opcionales set basico = " + opcional.getPrecio() + "," + "description =  '"
+                + opcional.getTipo() + "' where id =" + id;
+
         try {
             Statement sentencia = conn.createStatement();
+            ResultSet rs = sentencia.getResultSet();
 
-
-            String query = "select * from auto";
-
-            ResultSet rs = sentencia.executeQuery(query);
             while (rs.next()) {
-                opcional.setId(rs.getInt("id"));
+
+                Statement statement = conn.createStatement();
+                statement.executeUpdate(consulta);
+                System.out.println("Database updated successfully ");
+
             }
 
-
-            String consulta = "update  auto set basico = " + opcional.getPrice() + "," + "description =  '" + opcional.getTipo()
-                    + "' where id =" + opcional.getId();
-            sentencia.executeUpdate(consulta);
-
-
-        }
-        catch (Exception ex)
-        {
-            System.out.println("Error: Clase AutoDaoImple, método update");
-            ex.printStackTrace();
+        } catch (Exception ex) {
+            throw new DAOException("Error: Clase OpcionalDAOImpl" + ex.getCause());
         }
     }
 
+
     @Override
-    public void delete(Opcional opcional) {
+    public void delete(Integer id)throws DAOException {
+
         try {
             Statement sentencia = conn.createStatement();
-            String query = "select * from auto";
-
-            ResultSet rs = sentencia.executeQuery(query);
-            while (rs.next()) {
-                opcional.setId(rs.getInt("id"));
-            }
-
             Connection conn = AccesoConexion.getConnection();
-            String consulta = "delete from auto  where id = " + opcional.getId();
+            String consulta = "delete from opcionales where id = " + id;
 
             sentencia.executeUpdate(consulta);
             sentencia.close();
             conn.close();
 
         } catch (Exception ex) {
-            System.out.println("Error: Clase AutoDaoImple, método delete");
-            ex.printStackTrace();
+            throw new DAOException("Error: Clase OpcionalDAOImpl" + ex.getCause());
         }
 
     }
 
     @Override
-    public Opcional getQuery(Opcional opcional) {
-        Opcional opcion = null;
-        String consulta = "SELECT * FROM Opcion WHERE Id = " + opcional;
+    public Opcional getQuery(Integer id) throws DAOException{
+        Opcional opcional = null;
         try {
-
-            PreparedStatement sentencia = this.conn.prepareStatement(consulta);
-            ResultSet rs = sentencia.executeQuery(consulta);
-
-            if (rs.next()) {
-                opcion = new Opcional();
-                opcion.setId(rs.getInt("Id"));
-                //opcion.setTipo(rs.getString("Descripcion"));
-                //opcion.setPrecio(rs.getInt("Precio"));
-
-
-
-
-
-
-            /*
             Statement sentencia = conn.createStatement();
-            String query = "select * from auto";
-
-            ResultSet rs = sentencia.executeQuery(query);
-            while (rs.next()) {
-                opcional.setId(rs.getInt("id"));
-            }
-
+            String query = "select * from opcionales where id = " + id;
             sentencia.executeQuery(query);
-            ResultSet ps = sentencia.getResultSet();
-
-            if (ps.next()) {
+            ResultSet rs = sentencia.getResultSet();
+            while (rs.next()) {
                 opcional = new Opcional();
-                auto.setId(ps.getInt("Id"));
-                System.out.println("El id de la seleccion es: " + opcional.getId() + ", su valor es de: " + opcional.getPrice()
-                        + "$ y es del tipo: " + opcional.getTipo());
-
-
-            }*/
-
-
-            }
-        }catch (Exception ex) {
-
-            ex.printStackTrace();
-        }
-        return opcion;
-
-    }
-    /*************************************************************************************
-     *
-     * Implementacion de sql para tabla intermediaria lado opciones
-     *
-    *****************************************************************************************/
-
-
-    public void insertIntermedio(Opcional opcional) {
-        try {
-
-            // create a Statement from the connection
-            Statement statement = conn.createStatement();
-
-            // insert the data
-            statement.executeUpdate("INSERT INTO intermedia(basico, description) VALUES (" + opcional.getPrice() + ", '" + opcional.getTipo() + "')");
-
-
-
-            String query = "select * from auto";
-
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
                 opcional.setId(rs.getInt("id"));
+                opcional.setPrecio(rs.getInt("basico"));
+                opcional.setTipo(rs.getString("description"));
+                System.out.println("El id de la seleccion es: " + opcional.getId() + opcional.getPrecio() + ", su valor es de: " + opcional.getTipo()
+                        + "$ y es del tipo: ");
+
             }
 
-
-        } catch (Exception e) {
-            System.out.println("Error: Clase AutoDaoImple, método insertar");
-            e.printStackTrace();
-
-        }
-
-
-    }
-
-
-
-    public void updateIntermedio(Opcional opcional) {
-        try {
-            Statement sentencia = conn.createStatement();
-
-
-            String query = "select * from auto";
-
-            ResultSet rs = sentencia.executeQuery(query);
-            while (rs.next()) {
-                opcional.setId(rs.getInt("id"));
-            }
-
-
-            String consulta = "update  auto set basico = " + opcional.getPrice() + "," + "description =  '" + opcional.getTipo()
-                    + "' where id =" + opcional.getId();
-            sentencia.executeUpdate(consulta);
-
-
-        }
-        catch (Exception ex)
-        {
-            System.out.println("Error: Clase AutoDaoImple, método update");
-            ex.printStackTrace();
-        }
-    }
-
-
-    public void deleteIntermedio(Opcional opcional) {
-        try {
-            Statement sentencia = conn.createStatement();
-            String query = "select * from auto";
-
-            ResultSet rs = sentencia.executeQuery(query);
-            while (rs.next()) {
-                opcional.setId(rs.getInt("id"));
-            }
-
-            Connection conn = AccesoConexion.getConnection();
-            String consulta = "delete from auto  where id = " + opcional.getId();
-
-            sentencia.executeUpdate(consulta);
-            sentencia.close();
-            conn.close();
 
         } catch (Exception ex) {
-            System.out.println("Error: Clase AutoDaoImple, método delete");
-            ex.printStackTrace();
+            throw new DAOException("Error: Clase OpcionalDAOImpl" + ex.getCause());
         }
-
-    }
-
-    public Opcional getQueryIntermedio(Opcional opcional) {
-        Opcional opcion = null;
-        String consulta = "SELECT * FROM Opcion WHERE Id = " + opcional;
-        try {
-
-            PreparedStatement sentencia = this.conn.prepareStatement(consulta);
-            ResultSet rs = sentencia.executeQuery(consulta);
-
-            if (rs.next()) {
-                opcion = new Opcional();
-                opcion.setId(rs.getInt("Id"));
-                //opcion.setTipo(rs.getString("Descripcion"));
-                //opcion.setPrecio(rs.getInt("Precio"));
-
-
-
-            }
-        }catch (Exception ex) {
-
-            ex.printStackTrace();
-        }
-        return opcion;
-
+        return null;
     }
 }
 
